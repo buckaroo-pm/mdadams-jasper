@@ -1,0 +1,6 @@
+targets = [ "//:jasper" ]
+
+
+[[dependency]]
+package = "github.com/buckaroo-pm/luadist-libjpeg"
+version = "branch=master"

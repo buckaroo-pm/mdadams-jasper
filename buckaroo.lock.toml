@@ -1,0 +1,9 @@
+manifest = "ae61c5426fd62b0f3cb90db4d7fc9388040a227f87bb13c64199fecc546bbc6d"
+
+[[dependency]]
+package = "github.com/buckaroo-pm/luadist-libjpeg"
+target = "//:jpeg"
+
+[lock."github.com/buckaroo-pm/luadist-libjpeg"]
+versions = [ "branch=master" ]
+revision = "5e6a7dc7789af950e90b00b13ce36c099dc57bb5"

@@ -1,42 +1,33 @@
-language: c
-
-# Trusty Tahr release date: April 17, 2014
+language: cpp
+sudo: true
 dist: trusty
-sudo: required
-#sudo: false
-##group: beta
 
-# Precise Pangolin release date: April 26, 2012
-#dist: precise
-#sudo: required
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-6
+      - gcc-6
+  homebrew:
+    taps:
+      - facebook/fb
+    packages:
+      - buck
 
 os:
-    - linux
-    - osx
+  - linux
+  - osx
 
-#osx_image:
-#    - xcode7.3
-#    #- xcode8
+env:
+  - BUCKAROO_VERSION=buckaroo-redux-alpha-12
 
-compiler:
-    - clang
-    - gcc
+osx_image: xcode9.3
 
 before_install:
-    - build/travis/prebuild
-#    - bash --version
-#    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install freeglut; fi
-#    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-#    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew outdated bash || brew upgrade bash; fi
-#    - bash --version
-
-#install:
+  - ./travis/before-install-$TRAVIS_OS_NAME.sh
 
 script:
-    - build/travis/build
-
-notifications:
-    email:
-        on_success: change
-        on_failure: always
-
+  - ./buckaroo-client install
+  - buck build -c ui.superconsole=DISABLED //:jasper
+  - buck run -c ui.superconsole=DISABLED //:imgcmp
